@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { compareSync } = require('bcrypt');
 const {Comment} = require('../../models');
+const withAuth = require('../../utils/auth');
 
 router.get('/', (req, res) => {
     Comment.findAll({
@@ -13,7 +14,7 @@ router.get('/', (req, res) => {
 });
 
 
-router.post('/', (req, res) => {
+router.post('/', withAuth, (req, res) => {
     // check the session 
     if (req.session) {
         Comment.create({
@@ -31,7 +32,7 @@ router.post('/', (req, res) => {
 });
 
 
-router.delete('/:id', (req, res) => {
+router.delete('/:id', withAuth, (req, res) => {
     Comment.destroy({
         where: {
             id: req.params.id
