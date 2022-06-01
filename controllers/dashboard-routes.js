@@ -34,7 +34,7 @@ router.get('/', withAuth, (req, res) => {
       .then(dbPostData => {
         // serialize data before passing to template
         const posts = dbPostData.map(post => post.get({ plain: true }));
-        res.render('dashboard', { posts, loggedIn: req.session.loggedIn});
+        res.render('dashboard', { posts, loggedIn:true});
       })
       .catch(err => {
         console.log(err);
@@ -77,7 +77,7 @@ router.get('/', withAuth, (req, res) => {
         const post = dbPostData.get({plain: true});
         res.render('edit-post', {
           post, 
-          loggedIn: req.session.loggedIn
+          loggedIn: true
         });
     })
     .catch(err => {
